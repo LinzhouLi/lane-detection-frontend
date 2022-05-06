@@ -7,7 +7,7 @@ import DetectImage from './pages/DetectImage.vue';
 import DetectVideo from './pages/DetectVideo.vue';
 
 const routes = [
-    { path: '/', component: HomePage },
+    { name: "home", path: '/', component: HomePage },
     { name: "image", path: '/image', component: DetectImage },
     { name: "video", path: '/video', component: DetectVideo },
 ]

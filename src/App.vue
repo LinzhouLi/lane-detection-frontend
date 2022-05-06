@@ -20,7 +20,7 @@ body {
 }
 
 #main-container {
-  min-height: 100vh;
+  min-height: calc(100vh - 120px);
 }
 
 #header-container {

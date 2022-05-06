@@ -48,6 +48,14 @@ class LaneDetection {
 
     }
 
+    drawVideo(video) {
+
+        this.resize(video.clientWidth, video.clientHeight);
+        this.ctx.drawImage(video, 0, 0);
+        this.fontSize = video.clientHeight / 40;
+
+    }
+
     drawObject(object) {
 
         // 物体包围框
@@ -88,15 +96,25 @@ class LaneDetection {
 
     resizeToVideo(videoDom) {
 
-        this.#maxClientWidth = videoDom.clientWidth;
-        this.#maxClientHeight = videoDom.clientHeight;
-        this.#width = videoDom.clientWidth;
-        this.#height = videoDom.clientHeight;
+        let ratio = videoDom.clientWidth / videoDom.clientHeight;
+        if (ratio > this.canvasRatio) {
+            let height = this.#maxClientWidth / ratio;
+            this.#height = height;
+            this.#width = this.#maxClientWidth;
+        }
+        else {
+            let width = this.#maxClientHeight * ratio;
+            this.#height = this.#maxClientHeight;
+            this.#width = width;
+        }
 
-        this.canvas.style.width = `${this.#maxClientWidth}px`;
-        this.canvas.style.height = `${this.#maxClientHeight}px`;
+        this.canvas.style.width = `${this.#width}px`;
         this.canvas.width = this.#width;
+        videoDom.style.width = `${this.#width}px`;
+
+        this.canvas.style.height = `${this.#height}px`;
         this.canvas.height = this.#height;
+        videoDom.style.height = `${this.#height}px`;
 
     }
 
@@ -105,13 +123,15 @@ class LaneDetection {
     }
 
     drawYoloObjects(objs) {
-        objs.forEach(item => {
-            this.drawObject({
-                coords : item.coords,
-                text: `${item.class} ${item.confidence.toFixed(2)}`,
-                color: this.convertColor(item.color)
+        if (!!objs) {
+            objs.forEach(item => {
+                this.drawObject({
+                    coords : item.coords,
+                    text: `${item.class} ${item.confidence.toFixed(2)}`,
+                    color: this.convertColor(item.color)
+                });
             });
-        });
+        }
     }
 
     drawPoint(coord) {
@@ -120,11 +140,13 @@ class LaneDetection {
     }
 
     drawLanes(lanes) {
-        lanes.forEach(lane => {
-            lane.forEach(coord => {
-                this.drawPoint(coord);
+        if (!!lanes) {
+            lanes.forEach(lane => {
+                lane.forEach(coord => {
+                    this.drawPoint(coord);
+                });
             });
-        });
+        }
     }
 
 }

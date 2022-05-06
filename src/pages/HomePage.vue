@@ -12,11 +12,11 @@ function goto(path) {
 </script>
 
 <template>
-<el-container id="main-container">
+<el-container>
   <el-header id="header-container">
     <Header />
   </el-header>
-  <el-main>
+  <el-main id="main-container">
     <el-button @click="goto('image')">检测照片</el-button>
     <el-button @click="goto('video')">检测视频</el-button>
   </el-main>

@@ -6,11 +6,11 @@ import ImageDetector from '../components/ImageDetector.vue';
 </script>
 
 <template>
-<el-container id="main-container">
+<el-container>
   <el-header id="header-container">
     <Header />
   </el-header>
-  <el-main id="main">
+  <el-main id="main-container">
     <ImageDetector />
   </el-main>
   <el-footer id = "footer-container">
@@ -20,7 +20,5 @@ import ImageDetector from '../components/ImageDetector.vue';
 </template>
 
 <style scoped>
-/* #main {
-  display: flex;
-} */
+
 </style>
