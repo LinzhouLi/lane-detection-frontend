@@ -24,9 +24,11 @@ let detect = () => {
 
       axios.post('/api/image', formdata).then(res => {
         console.log(res);
-        if (res.data.yolo || res.data.lane) drawDet.clear();
-        drawDet.drawYoloObjects(res.data.yolo);
-        drawDet.drawLanes(...res.data.lane);
+        if (res.data.yolo || res.data.lane) {
+          drawDet.clear();
+          drawDet.drawYoloObjects(res.data.yolo);
+          drawDet.drawLanes(...res.data.lane);
+        }
 
         detect();
       });
@@ -49,11 +51,11 @@ onMounted(() => {
   video.onloadedmetadata = () => {
     video.play();
     videoPlaying = true;
-    videoDet.resizeToVideo(video);
-    drawDet.resizeToVideo(video);
   }
   video.onplay = () => {
     videoPlaying = true;
+    videoDet.resizeToVideo(video);
+    drawDet.resizeToVideo(video);
     drawVideo();
     detect();
   }

@@ -50,7 +50,6 @@ class LaneDetection {
 
     drawVideo(video) {
 
-        this.resize(video.clientWidth, video.clientHeight);
         this.ctx.drawImage(video, 0, 0);
         this.fontSize = video.clientHeight / 40;
 
@@ -97,24 +96,21 @@ class LaneDetection {
     resizeToVideo(videoDom) {
 
         let ratio = videoDom.clientWidth / videoDom.clientHeight;
+        let height, width;
         if (ratio > this.canvasRatio) {
-            let height = this.#maxClientWidth / ratio;
-            this.#height = height;
-            this.#width = this.#maxClientWidth;
+            height = this.#maxClientWidth / ratio;
+            width = this.#maxClientWidth;
         }
         else {
-            let width = this.#maxClientHeight * ratio;
-            this.#height = this.#maxClientHeight;
-            this.#width = width;
+            width = this.#maxClientHeight * ratio;
+            height = this.#maxClientHeight;
         }
 
-        this.canvas.style.width = `${this.#width}px`;
-        this.canvas.width = this.#width;
-        videoDom.style.width = `${this.#width}px`;
+        this.canvas.width = this.#width =  videoDom.clientWidth;
+        this.canvas.height = this.#height =  videoDom.clientHeight;
 
-        this.canvas.style.height = `${this.#height}px`;
-        this.canvas.height = this.#height;
-        videoDom.style.height = `${this.#height}px`;
+        this.canvas.style.width = `${width}px`;
+        this.canvas.style.height = `${height}px`;
 
     }
 
